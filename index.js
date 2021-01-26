@@ -31,23 +31,19 @@ function stub(base = {}) {
     });
 }
 
-function stubMongooseModel(base = {}) {
-    const store = new Map();
-
+function stubMongooseModelStupidly(base = {}) {
     return new Proxy(base, {
         get(target, prop) {
-            if (prop in target && !store.has(prop)) {
-                const mockedFunction = prop.startsWith("find")
+            if (prop in target) {
+                return prop.startsWith("find")
                     ? jest.fn().mockImplementationOnce(() => ({ lean: jest.fn().mockImplementationOnce(() => ({ exec: jest.fn() })) }))
                     : jest.fn();
-
-                store.set(prop, mockedFunction);
             }
 
-            return store.get(prop);
+            return undefined;
         },
         has(_target, prop) {
-            return store.has(prop);
+            return true;
         },
     });
 }

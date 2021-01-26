@@ -56,4 +56,4 @@ function stubMongooseModel(base = {}) {
     });
 }
 
-export { stub, stubMongooseModel };
+export default { stub, stubMongooseModel };

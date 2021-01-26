@@ -1,0 +1,2 @@
+# jest-micro-auto-stub
+

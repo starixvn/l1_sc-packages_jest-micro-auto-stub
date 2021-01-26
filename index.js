@@ -48,4 +48,4 @@ function stubMongooseModelStupidly(base = {}) {
     });
 }
 
-module.exports = { stub, stubMongooseModel };
+module.exports = { stub, stubMongooseModelStupidly };

@@ -1,6 +1,6 @@
 {
     "name": "jest-micro-auto-stub",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Super micro auto stubstitute for jest, using for Saba internally",
     "main": "index.js",
     "scripts": {

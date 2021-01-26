@@ -32,17 +32,13 @@ function stub(base = {}) {
 }
 
 function stubMongooseModel(base = {}) {
-    if (!(base instanceof mongoose.Model)) {
-        throw new Error("Expected mongoose.Model");
-    }
-
     const store = new Map();
 
     return new Proxy(base, {
         get(target, prop) {
             if (prop in target && !store.has(prop)) {
                 const mockedFunction = prop.startsWith("find")
-                    ? jest.fn().mockReturnValueOnce({ lean: jest.fn().mockReturnValueOnce({ exec: jest.fn() }) })
+                    ? jest.fn().mockImplementationOnce(() => ({ lean: jest.fn().mockImplementationOnce(() => ({ exec: jest.fn() })) }))
                     : jest.fn();
 
                 store.set(prop, mockedFunction);
@@ -56,4 +52,4 @@ function stubMongooseModel(base = {}) {
     });
 }
 
-export default { stub, stubMongooseModel };
+module.exports = { stub, stubMongooseModel };

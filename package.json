@@ -1,0 +1,39 @@
+{
+    "name": "jest-micro-auto-stub",
+    "version": "1.0.0",
+    "description": "Super micro auto stubstitute for jest, using for Saba internally",
+    "main": "index.js",
+    "scripts": {
+        "verpatch": "npm version patch",
+        "verminor": "npm version minor",
+        "betaver": "npm version prerelease --preid beta",
+        "pub": "npm publish --registry http://npm.lumigame.com",
+        "pubbeta": "npm publish --registry http://npm.lumigame.com --tag beta"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://git3.nexdev.net/sc-packages/jest-micro-auto-stub.git"
+    },
+    "keywords": [
+        "jest",
+        "auto-stub"
+    ],
+    "author": "pentagon",
+    "license": "ISC",
+    "devDependencies": {
+        "@commitlint/cli": "^9.1.2",
+        "@commitlint/config-conventional": "^9.1.2",
+        "husky": "^4.2.5",
+        "install": "^0.13.0",
+        "sc-semantic-release": "^1.2.0"
+    },
+    "dependencies": {
+        "jest": "^26.6.3",
+        "mongoose": "^5.9.25"
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    }
+}

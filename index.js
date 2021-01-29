@@ -32,18 +32,22 @@ function stub(base = {}) {
 }
 
 function stubMongooseModelStupidly(base = {}) {
+    const store = new Map();
+
     return new Proxy(base, {
         get(target, prop) {
-            if (prop in target) {
-                return prop.startsWith("find")
-                    ? jest.fn().mockImplementationOnce(() => ({ lean: jest.fn().mockImplementationOnce(() => ({ exec: jest.fn() })) }))
-                    : jest.fn();
+            if (prop in target && !store.has(prop)) {
+                const mockedExecFunction = jest.fn();
+                const mockedFindFunction = { lean: () => ({ exec: mockedExecFunction }) };
+                const mockedFunction = prop.startsWith("find") ? () => mockedFindFunction : jest.fn();
+
+                store.set(prop, mockedFunction);
             }
 
-            return undefined;
+            return store.get(prop);
         },
         has(_target, prop) {
-            return true;
+            return store.has(prop);
         },
     });
 }

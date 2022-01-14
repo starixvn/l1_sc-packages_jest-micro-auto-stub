@@ -31,7 +31,7 @@ function stub(base = {}) {
     });
 }
 
-function stubMongooseModelStupidly(base = {}) {
+function stubMongoose(base = {}) {
     const store = new Map();
 
     return new Proxy(base, {
@@ -52,4 +52,4 @@ function stubMongooseModelStupidly(base = {}) {
     });
 }
 
-module.exports = { stub, stubMongooseModelStupidly };
+module.exports = { stub, stubMongoose };

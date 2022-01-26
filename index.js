@@ -38,8 +38,10 @@ function stubMongoose(base = {}) {
         get(target, prop) {
             if (prop in target && !store.has(prop)) {
                 const mockedExecFunction = jest.fn();
-                const mockedFindFunction = { lean: () => ({ exec: mockedExecFunction }) };
-                const mockedFunction = prop.startsWith("find") && !prop.includes("Update") ? () => mockedFindFunction : jest.fn();
+                const mockedFindFunction = jest
+                    .fn()
+                    .mockReturnValue({ lean: () => ({ exec: mockedExecFunction }), exec: mockedExecFunction });
+                const mockedFunction = prop.startsWith("find") && !prop.includes("Update") ? mockedFindFunction : jest.fn();
 
                 store.set(prop, mockedFunction);
             }
